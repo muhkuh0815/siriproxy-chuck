@@ -43,7 +43,6 @@ class SiriProxy::Plugin::Chuck< SiriProxy::Plugin
       shaf = ""
       begin
 	doc = Nokogiri::HTML(open("http://chuck-norris-witze.de/api.php?key=" + @key.to_s + "&o=1"))
-	print @key
       rescue Timeout::Error
 	print "Timeout-Error beim Lesen der Seite"
 	shaf ="timeout"
@@ -56,8 +55,6 @@ class SiriProxy::Plugin::Chuck< SiriProxy::Plugin
     else
     end
     doc = doc.text
-    print doc
-    print "##"
     return doc
     
     end
@@ -70,6 +67,7 @@ listen_for /(Chuck norris|chuck|norris)/i do
   else
     zit = zitat.to_s
     zitat1 = zitat.gsub("Chuck","tschak")
+    zitat1.gsub!("oundhouse","aundhaus")
       say zitat.to_s, spoken: zitat1.to_s 
   end
   request_completed
